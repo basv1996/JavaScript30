@@ -63,13 +63,34 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
     }
 
   </style>
 
   <script>
+   const hourHand = document.querySelector(".hour-hand");
+    const minHand = document.querySelector(".min-hand");
+    const secondHand = document.querySelector(".second-hand");
 
+    function setClock() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
 
+      const hourDegrees = (hours * 30) + 90; // Each hour represents 30 degrees (360/12), starting from 12 o'clock position
+      const minuteDegrees = (minutes * 6) + 90; // Each minute represents 6 degrees (360/60), starting from 12 o'clock position
+      const secondDegrees = (seconds * 6) + 90; // Each second represents 6 degrees (360/60), starting from 12 o'clock position
+
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+      minHand.style.transform = `rotate(${minuteDegrees}deg)`;
+      secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+    }
+
+    setClock(); // Set initial clock position
+
+    setInterval(setClock, 1000); // Update clock position every second
   </script>
 </body>
 </html>
