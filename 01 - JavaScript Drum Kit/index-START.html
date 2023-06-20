@@ -7,6 +7,16 @@
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
 <body>
+  <style>
+ .key {
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .key.active {
+      transform: scale(1.1);
+      border-color: yellow;
+    }
+  </style>
 
 
   <div class="keys">
@@ -59,7 +69,26 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+    document.addEventListener("keydown", function(event) {
+      var keyPressed = event.key.toUpperCase();
+      var keyElement = document.querySelector(`.key[data-key="${keyPressed.charCodeAt(0)}"]`);
+      var audioElement = document.querySelector(`audio[data-key="${keyPressed.charCodeAt(0)}"]`);
 
+      if (keyElement) {
+        keyElement.classList.add("active");
+        audioElement.currentTime = 0;
+        audioElement.play();
+      }
+    });
+
+    document.addEventListener("keyup", function(event) {
+      var keyPressed = event.key.toUpperCase();
+      var keyElement = document.querySelector(`.key[data-key="${keyPressed.charCodeAt(0)}"]`);
+
+      if (keyElement) {
+        keyElement.classList.remove("active");
+      }
+    });
 </script>
 
 
